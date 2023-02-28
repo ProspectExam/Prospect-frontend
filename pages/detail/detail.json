@@ -1,0 +1,10 @@
+{
+  "usingComponents": {},
+  "backgroundTextStyle": "light",
+  "backgroundColor": "#000000",
+  "navigationBarBackgroundColor": "#ffffff",
+  "navigationBarTitleText": "todo",
+  "navigationBarTextStyle": "black",
+  "enablePullDownRefresh": false,
+  "onReachBottomDistance": 50
+}

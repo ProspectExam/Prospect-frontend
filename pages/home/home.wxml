@@ -1,0 +1,11 @@
+<!--pages/home/home.wxml-->
+<view class="page">
+  <image src='/image/goTop.png' class='goTop' hidden='{{!floorStatus}}' bindtap="goTop" mode="aspectFit"></image>
+
+  <view class="waterfall" wx:for="{{waterfall_list}}" wx:key="index" data-id="{{index}}" catchtap="handler_waterfall">
+    <view class="waterfall_item_title">{{item.title}}</view>
+    <image class="waterfall_item_image" mode="aspectFill" wx:if="{{item.url != ''}}" src="{{item.url}}"></image>
+    <!-- <text class="waterfall_item_summary">{{item.summary}}</text> -->
+  </view>
+</view>
+

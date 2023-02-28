@@ -1,0 +1,27 @@
+<!--pages/subscribe/subscribe.wxml-->
+<view class="card-container" catchtap="show_front" style="{{style_front}}">
+  <swiper class="card-content" indicator-dots="true" bindchange="change_current_school_code">
+    <block wx:for="{{access_by_code}}" wx:key="index">
+      <swiper-item item-id="{{item.school_code}}">
+        <view class="card-content-title">{{item.school_name}}</view>
+        <view class="card-school-detail">还没有内容~~</view>
+      </swiper-item>
+    </block>
+  </swiper>
+</view>
+<view class="card-container" catchtap="show_back" style="{{style_back}}">
+  <swiper class="card-content" indicator-dots="true">
+    <block wx:for="{{access_by_code[current_school_code].department}}" wx:for-item="itm" wx:for-index="idx" wx:key="idx">
+      <swiper-item>
+        <view class="card-content-title">{{itm.department_name}}</view>
+        <view class="card-department-detail">还没有内容~~</view>
+        <view class="button" wx:if="{{itm.subscribe_status}}">
+          <button size="mini" type="warn" catchtap="cancel" data-department_code="{{itm.department_code}}">取消订阅</button>
+        </view>
+        <view class="button">
+          <button size="mini" type="primary" catchtap="ok" data-department_code="{{itm.department_code}}">订阅</button>
+        </view>
+      </swiper-item>
+    </block>
+  </swiper>
+</view>

@@ -1,0 +1,3 @@
+<!--pages/waterfall_content/waterfall_content.wxml-->
+<!--使用towxml-->
+<towxml nodes="{{article}}"/>

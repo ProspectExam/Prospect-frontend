@@ -1,0 +1,52 @@
+/* pages/subscribe/subscribe.wxss */
+.card-container {
+  width: 95%;
+  height: 1000rpx;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+  box-sizing: border-box;
+  box-shadow: 5rpx 5rpx 20rpx -2rpx rgb(224, 228, 228);
+  border: 1rpx solid rgb(247, 248, 248);
+  border-radius: 15rpx;
+  transition: all 1.5s;
+  backface-visibility: hidden;
+  position: absolute;
+  left: 2.5%;
+  overflow: hidden;
+}
+
+.card-content {
+  width: 100%;
+  height: 1000rpx;
+}
+
+.card-content-title {
+  width: 100%;
+  height: 200rpx;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+}
+
+.card-school-detail {
+  width: 100%;
+  height: 800rpx;
+  color: black;
+}
+
+.card-department-detail {
+  width: 100%;
+  height: 600rpx;
+  color: black;
+}
+
+.button {
+  width: 100%;
+  height: 200rpx;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
