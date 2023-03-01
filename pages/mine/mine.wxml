@@ -2,14 +2,14 @@
 <view class="page">
   <view class="login">
     <view class="image">
-      <image src="{{avatarUrl}}" class="image_image"></image>
+      <image src="{{login_info.avatarUrl}}" class="image_image"></image>
     </view>
-    <view class="text" wx:if="{{!islogin}}">
+    <view class="text" wx:if="{{!login_info.login_status}}">
       <view class="text1" bindtap="login">点击登录</view>
       <view class="text2">登录更精彩</view>
     </view>
     <view class="text" wx:else>
-      <view class="text3">{{nickname}}</view>
+      <view class="text3">{{login_info.nickname}}</view>
     </view>
   </view>
 

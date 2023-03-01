@@ -8,7 +8,8 @@ Page({
    * 页面的初始数据
    */
   data: {
-    access_by_code: {},
+    login_info: null,
+    access_by_code: null,
     current_school_code: "1",
     style_front: "transform: rotateY(0deg)",
     style_back: "transform: rotateY(180deg)"
@@ -22,13 +23,14 @@ Page({
     console.log("app.globalData.get_subscribed_info")
     console.log(app.globalData.get_subscribed_info)
     this.setData({
+      login_info: app.globalData.login_info,
       access_by_code: app.globalData.access_by_code
     })
     if (app.globalData.get_subscribed_info) {
       return
     }
-    if (app.globalData.acc == "" || app.globalData.open_id == "") {
-      console.log("没有有效的access_token或open_id")
+    if (!this.data.login_info.login_status) {
+      console.log("未登录")
       wx.redirectTo({
         url: '/pages/login/login',
         success: function () {
@@ -41,26 +43,26 @@ Page({
       return
     }
     let that = this
-    var func = async function() {
+    let func = async function() {
       let e = await app.request_post({
         url: 'https://rinka-kujou.uk/get_user_subscribe',
         method: "POST",
         data: {
-          access_token: app.globalData.acc,
-          open_id: app.globalData.open_id
+          access_token: that.data.login_info.access_token,
+          open_id: that.data.login_info.open_id
         }
       })
       console.log("get_user_subscribe")
       console.log("参数(access_token, open_id)：")
-      console.log(app.globalData.acc)
-      console.log(app.globalData.open_id)
+      console.log(that.data.login_info.access_token)
+      console.log(that.data.login_info.open_id)
       console.log("结果：")
       console.log(e)
-      if (e.data.err_code == 0) {
+      if (e.data.err_code === 0) {
         for (let subscribe_school_code in e.data.info) {
           that.data.access_by_code[subscribe_school_code].subscribed_num = e.data.info[subscribe_school_code].length
           for (let n = 0; n < e.data.info[subscribe_school_code].length; ++n) {
-            that.data.access_by_code[subscribe_school_code].department[e.data.info[subscribe_school_code][n]].subscribe_status = true
+            that.data.access_by_code[subscribe_school_code].department[(e.data.info[subscribe_school_code][n]).toString()].subscribe_status = true
           }
         }
         that.setData({
@@ -68,16 +70,19 @@ Page({
         })
         app.globalData.access_by_code = that.data.access_by_code
         app.globalData.get_subscribed_info = true
-      } else if (e.data.err_code == 104) {
+      } else if (e.data.err_code === 104) {
         wx.removeStorageSync('acc')
         wx.removeStorageSync('open_id')
         wx.removeStorageSync('avatarUrl')
         wx.removeStorageSync('nickname')
-        app.globalData.acc = ""
-        app.globalData.open_id = ""
-        app.globalData.login_status = false
-        app.globalData.avatarUrl = defaultAvatarUrl
-        app.globalData.nickname = ""
+        app.globalData.login_info.access_token = ""
+        app.globalData.login_info.open_id = ""
+        app.globalData.login_info.login_status = false
+        app.globalData.login_info.avatarUrl = defaultAvatarUrl
+        app.globalData.login_info.nickname = ""
+        that.setData({
+          login_info: app.globalData.login_info
+        })
 
         wx.redirectTo({
           url: '/pages/login/login',
@@ -194,8 +199,8 @@ Page({
                 department_code: department_code,
                 oper: 0
               }],
-              open_id: wx.getStorageSync('open_id'),
-              access_token: wx.getStorageSync('acc')
+              open_id: that.data.login_info.open_id,
+              access_token: that.data.login_info.access_token
             },
             success: function(e) {
               console.log("subscribe")
@@ -205,7 +210,7 @@ Page({
               console.log("订阅")
               console.log("结果")
               console.log(e);
-              if (e.data.err_code == 0) {
+              if (e.data.err_code === 0) {
                 that.data.access_by_code[school_code.toString()].subscribed_num += 1 
                 that.data.access_by_code[school_code.toString()].department[department_code.toString()].subscribe_status = true
                 that.setData({
@@ -240,8 +245,8 @@ Page({
           department_code: department_code,
           oper: 1
         }],
-        open_id: wx.getStorageSync('open_id'),
-        access_token: wx.getStorageSync('acc')
+        open_id: that.data.login_info.open_id,
+        access_token: that.data.login_info.access_token
       },
       success: function(e) {
         console.log("subscribe")
@@ -251,7 +256,7 @@ Page({
         console.log("取消订阅")
         console.log("结果")
         console.log(e);
-        if (e.data.err_code == 0) {
+        if (e.data.err_code === 0) {
           that.data.access_by_code[school_code.toString()].subscribed_num -= 1
           that.data.access_by_code[school_code.toString()].department[department_code.toString()].subscribe_status = false
           that.setData({

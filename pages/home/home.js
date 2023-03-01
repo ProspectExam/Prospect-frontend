@@ -7,7 +7,7 @@ Page({
    * 页面的初始数据
    */
   data: {
-    access_by_code: {},
+    access_by_code: null,
     get_subscribed_info: false,
     have_subscribe: false,
     waiting: false ,
@@ -19,7 +19,8 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad(options) {
-    
+    console.log("page home onLoad")
+    this.get_waterfall_list()
   },
 
   /**
@@ -34,8 +35,8 @@ Page({
    */
   onShow() {
     console.log("page home onShow")
-    this.get_waterfall_list()
-    
+    console.log("app:")
+    console.log(app)
     console.log("app.globalData.get_subscribed_info:")
     console.log(app.globalData.get_subscribed_info)
     if (!app.globalData.get_subscribed_info) {
@@ -48,13 +49,16 @@ Page({
     console.log("this.data.get_subscribed_info:")
     console.log(this.data.get_subscribed_info)
     for (let school_code in this.data.access_by_code) {
-      if (this.data.access_by_code[school_code].subscribed_num != 0) {
+      if (this.data.access_by_code[school_code].subscribed_num !== 0) {
         this.setData({
           have_subscribe: true
         })
         return
       }
     }
+    this.setData({
+      have_subscribe: false
+    })
   },
 
   /**
@@ -82,7 +86,9 @@ Page({
    * 页面上拉触底事件的处理函数
    */
   onReachBottom() {
-    if (this.data.waiting) return;
+    if (this.data.waiting) {
+      return
+    }
   },
 
   /**
@@ -93,7 +99,7 @@ Page({
   },
 
   get_waterfall_list: function() {
-    var that = this
+    let that = this
     wx.request({
       url: 'https://rinka-kujou.uk/waterfall',
       method: "GET",
@@ -101,7 +107,7 @@ Page({
         console.log("waterfall")
         console.log("结果：")
         console.log(e)
-        if (e.data.err_code == 0) {
+        if (e.data.err_code === 0) {
           let waterfall_list_ret = []
           for (let i = 0; i < e.data.items.length; ++i) {
             let waterfall_list_item_ret = {}
@@ -124,11 +130,11 @@ Page({
     if (e.scrollTop > 250) {
       this.setData({
         floorStatus: true
-      });
+      })
     } else {
       this.setData({
         floorStatus: false
-      });
+      })
     }
   },
 

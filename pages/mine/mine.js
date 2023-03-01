@@ -1,12 +1,10 @@
 // pages/mine/mine.js
-var app = getApp()
 const defaultAvatarUrl = 'https://mmbiz.qpic.cn/mmbiz/icTdbqWNOwNRna42FI242Lcia07jQodd2FJGIYQfG0LAJGFxM4FbnQP6yfMxBgJ0F3YRqJCJ1aPAK2dQagdusBZg/0'
+let app = getApp()
 
 Page({
   data: {
-    islogin: false,
-    avatarUrl: defaultAvatarUrl,
-    nickname: "",
+    login_info: null,
     list: [
       {
         text: "信息提醒",
@@ -32,7 +30,12 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad(options) {
-    
+    console.log("page mine onLoad")
+    console.log("app.globalData.login_info:")
+    console.log(app.globalData.login_info)
+    this.setData({
+      login_info: app.globalData.login_info
+    })
   },
 
   /**
@@ -46,13 +49,11 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow() {
-    console.log("page mine onShow()")
-    console.log("app.globalData.login_status:")
-    console.log(app.globalData.login_status)
+    console.log("page mine onShow")
+    console.log("app.globalData.login_info:")
+    console.log(app.globalData.login_info)
     this.setData({
-      islogin: app.globalData.login_status,
-      avatarUrl: app.globalData.avatarUrl,
-      nickname: app.globalData.nickname
+      login_info: app.globalData.login_info
     })
   },
 
@@ -84,33 +85,30 @@ Page({
   },
 
   handler_list: function(argument) {
-    let id = argument.currentTarget.dataset.id;
+    let id = argument.currentTarget.dataset.id
     if (id == 1) {
       wx.navigateTo({
-        url: '/pages/subscribe/subscribe',
-      });
-      return;
+        url: '/pages/subscribe/subscribe'
+      })
+      return
     }
     wx.navigateTo({
-      url: '/pages/function/function?id=' + id,
-    });
+      url: '/pages/function/function?id=' + id
+    })
   },
 
   handler_logoff: function() {
-    wx.removeStorageSync('acc');
-    wx.removeStorageSync('open_id');
-    wx.removeStorageSync('avatarUrl');
-    wx.removeStorageSync('nickname');
-    app.globalData.login_status = false;
-    app.globalData.avatarUrl = defaultAvatarUrl;
-    app.globalData.nickname = "";
+    app.globalData.login_info.access_token = ""
+    app.globalData.login_info.open_id = ""
+    app.globalData.login_info.login_status = false
+    app.globalData.login_info.avatarUrl = defaultAvatarUrl
+    app.globalData.login_info.nickname = ""
+    wx.removeStorageSync('acc')
+    wx.removeStorageSync('open_id')
+    wx.removeStorageSync('avatarUrl')
+    wx.removeStorageSync('nickname')
     this.setData({
-      islogin: false,
-      avatarUrl: defaultAvatarUrl,
-      nickname: ""
-    });
-    wx.switchTab({
-      url: '/pages/mine/mine',
-    });
+      login_info: app.globalData.login_info
+    })
   }
 })

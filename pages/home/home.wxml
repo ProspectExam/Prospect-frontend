@@ -8,9 +8,9 @@
     <block wx:if="{{get_subscribed_info && have_subscribe}}">
       <swiper class="school_container">
         <block wx:for="{{access_by_code}}" wx:for-item="school_item" wx:for-index="school_index" wx:key="school_index">
-          <swiper-item class="school_container_item">
-            <view class="subscribed_item">
-              <block wx:if="{{school_item.subscribed_num != 0}}">
+          <block wx:if="{{school_item.subscribed_num != 0}}">
+            <swiper-item class="school_container_item">
+              <view class="subscribed_item">
                 <view class="subscribed_item_school">{{school_item.school_name}}</view>
                 <swiper class="department_container">
                   <block wx:for="{{school_item.department}}" wx:for-item="department_item" wx:for-index="department_index" wx:key="department_index">
@@ -21,9 +21,9 @@
                     </block>
                   </block>
                 </swiper>
-              </block>
-            </view>
-          </swiper-item>
+              </view>
+            </swiper-item>
+          </block>
         </block>
       </swiper>
     </block>
