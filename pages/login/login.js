@@ -56,20 +56,24 @@ Page({
               console.log("结果")
               console.log(e)
               if (e.data.err_code == 0) {
-                wx.setStorageSync('acc', e.data.access_token);
-                wx.setStorageSync('open_id', e.data.open_id);
-                wx.setStorageSync('avatarUrl', that.data.avatarUrl);
-                wx.setStorageSync('nickname', that.data.nickname);
-                app.globalData.login_status = true;
-                app.globalData.avatarUrl = that.data.avatarUrl;
-                app.globalData.nickname = that.data.nickname;
+                wx.setStorageSync('acc', e.data.access_token)
+                wx.setStorageSync('open_id', e.data.open_id)
+                wx.setStorageSync('avatarUrl', that.data.avatarUrl)
+                wx.setStorageSync('nickname', that.data.nickname)
+                app.globalData.acc = e.data.access_token
+                app.globalData.open_id = e.data.open_id
+                app.globalData.login_status = true
+                app.globalData.avatarUrl = that.data.avatarUrl
+                app.globalData.nickname = that.data.nickname
                 wx.switchTab({
                   url: '/pages/mine/mine',
                 })  
               } else {
-                app.globalData.login_status = false;
-                app.globalData.avatarUrl = defaultAvatarUrl;
-                app.globalData.nickname = "";
+                app.globalData.acc = ""
+                app.globalData.open_id = ""
+                app.globalData.login_status = false
+                app.globalData.avatarUrl = defaultAvatarUrl
+                app.globalData.nickname = ""
                 wx.showToast({
                   title: '登录失败',
                   icon: "error"

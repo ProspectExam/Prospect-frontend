@@ -18,6 +18,9 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad(options) {
+    console.log("page subscribe onLoad")
+    console.log("app.globalData.get_subscribed_info")
+    console.log(app.globalData.get_subscribed_info)
     this.setData({
       access_by_code: app.globalData.access_by_code
     })
@@ -49,7 +52,8 @@ Page({
       })
       console.log("get_user_subscribe")
       console.log("参数(access_token, open_id)：")
-      console.log("略")
+      console.log(app.globalData.acc)
+      console.log(app.globalData.open_id)
       console.log("结果：")
       console.log(e)
       if (e.data.err_code == 0) {

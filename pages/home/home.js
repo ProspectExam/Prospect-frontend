@@ -33,8 +33,11 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow() {
+    console.log("page home onShow")
     this.get_waterfall_list()
-
+    
+    console.log("app.globalData.get_subscribed_info:")
+    console.log(app.globalData.get_subscribed_info)
     if (!app.globalData.get_subscribed_info) {
       return
     }
@@ -42,6 +45,8 @@ Page({
       get_subscribed_info: true,
       access_by_code: app.globalData.access_by_code
     })
+    console.log("this.data.get_subscribed_info:")
+    console.log(this.data.get_subscribed_info)
     for (let school_code in this.data.access_by_code) {
       if (this.data.access_by_code[school_code].subscribed_num != 0) {
         this.setData({
@@ -111,16 +116,6 @@ Page({
           })
         }
       }
-    })
-  },
-
-  handler: function(argument) {
-    var id = argument.currentTarget.dataset.id
-    // wx.navigateTo({
-    //   url: '/pages/detail/detail?id=' + id
-    // })
-    wx.navigateTo({
-      url: '/pages/light/index'
     })
   },
 
