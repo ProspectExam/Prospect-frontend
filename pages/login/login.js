@@ -78,6 +78,7 @@ Page({
             },
             fail: function(err) {
               console.log("send_code fail")
+              console.log(err)
             }
           });
         } else {

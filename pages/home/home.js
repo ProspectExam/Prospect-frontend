@@ -1,10 +1,15 @@
 // pages/home/home.js
+let app = getApp();
+
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
+    access_by_code: {},
+    get_subscribed_info: false,
+    have_subscribe: false,
     waiting: false ,
     floorStatus: false,
     waterfall_list: []
@@ -14,7 +19,7 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad(options) {
-
+    
   },
 
   /**
@@ -29,6 +34,22 @@ Page({
    */
   onShow() {
     this.get_waterfall_list()
+
+    if (!app.globalData.get_subscribed_info) {
+      return
+    }
+    this.setData({
+      get_subscribed_info: true,
+      access_by_code: app.globalData.access_by_code
+    })
+    for (let school_code in this.data.access_by_code) {
+      if (this.data.access_by_code[school_code].subscribed_num != 0) {
+        this.setData({
+          have_subscribe: true
+        })
+        return
+      }
+    }
   },
 
   /**
