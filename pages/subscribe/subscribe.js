@@ -11,8 +11,9 @@ Page({
     login_info: null,
     access_by_code: null,
     current_school_code: "1",
-    style_front: "transform: rotateY(0deg)",
-    style_back: "transform: rotateY(180deg)"
+    display_status: true,
+    h: 0,
+    w: 0
   },
 
   /**
@@ -20,6 +21,16 @@ Page({
    */
   onLoad(options) {
     console.log("page subscribe onLoad")
+
+    this.setData({
+      h: wx.getSystemInfoSync().windowHeight,
+      w: wx.getSystemInfoSync().windowWidth
+    })
+    console.log("h:")
+    console.log(this.data.h)
+    console.log("w:")
+    console.log(this.data.w)
+
     console.log("app.globalData.get_subscribed_info")
     console.log(app.globalData.get_subscribed_info)
     this.setData({
@@ -147,20 +158,6 @@ Page({
 
   },
 
-  show_front: function () {
-    this.setData({
-      style_front: "transform: rotateY(180deg)",
-      style_back: "transform: rotateY(0deg)"
-    })
-  },
-
-  show_back: function () {
-    this.setData({
-      style_front: "transform: rotateY(0deg)",
-      style_back: "transform: rotateY(180deg)"
-    })
-  },
-
   change_current_school_code: function(e) {
     console.log("change_school_list_index")
     console.log(e)
@@ -270,5 +267,11 @@ Page({
         } 
       }
     });
+  },
+
+  change_display_status: function() {
+    this.setData({
+      display_status: !this.data.display_status
+    })
   }
 })

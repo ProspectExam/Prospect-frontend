@@ -3,7 +3,6 @@
   "backgroundTextStyle": "light",
   "backgroundColor": "#000000",
   "navigationBarBackgroundColor": "#ffffff",
-  "navigationBarTitleText": "首页",
   "navigationBarTextStyle": "black",
   "enablePullDownRefresh": false,
   "onReachBottomDistance": 40

@@ -12,7 +12,6 @@
     "backgroundTextStyle": "light",
     "backgroundColor": "#000000",
     "navigationBarBackgroundColor": "#ffffff",
-    "navigationBarTitleText": "prospect",
     "navigationBarTextStyle": "black",
     "enablePullDownRefresh": false,
     "onReachBottomDistance": 50

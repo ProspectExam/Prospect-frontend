@@ -20,7 +20,7 @@
     </view>
   </view>
 
-  <button class="logoff" bindtap="handler_logoff" disabled="{{!islogin}}">退出登录</button>
+  <button class="logoff" bindtap="handler_logoff" disabled="{{!login_info.login_status}}">退出登录</button>
 
   <view class="version">{{version}}</view>
 </view>
