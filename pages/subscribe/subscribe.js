@@ -11,9 +11,14 @@ Page({
     login_info: null,
     access_by_code: null,
     current_school_code: "1",
+    current_department_code: "1",
+    school_index: 0,
+    department_index: 0,
+    folded: true,
     display_status: true,
     h: 0,
-    w: 0
+    w: 0,
+    code2index: {}
   },
 
   /**
@@ -21,6 +26,9 @@ Page({
    */
   onLoad(options) {
     console.log("page subscribe onLoad")
+    wx.showLoading({
+      title: '加载中',
+    })
 
     this.setData({
       h: wx.getSystemInfoSync().windowHeight,
@@ -37,11 +45,29 @@ Page({
       login_info: app.globalData.login_info,
       access_by_code: app.globalData.access_by_code
     })
+    let school_cnt = 0
+    for (let school_code in this.data.access_by_code) {
+      this.data.code2index[school_code] = {}
+      this.data.code2index[school_code].school_index = school_cnt
+      school_cnt += 1
+      let department_cnt = 0
+      this.data.code2index[school_code].department = {}
+      for (let department_code in this.data.access_by_code[school_code].department) {
+        this.data.code2index[school_code].department[department_code] = {}
+        this.data.code2index[school_code].department[department_code].department_index = department_cnt
+        department_cnt += 1
+      }
+    }
+    this.setData({
+      code2index: this.data.code2index
+    })
     if (app.globalData.get_subscribed_info) {
+      wx.hideLoading()
       return
     }
     if (!this.data.login_info.login_status) {
       console.log("未登录")
+      wx.hideLoading()
       wx.redirectTo({
         url: '/pages/login/login',
         success: function () {
@@ -105,6 +131,7 @@ Page({
           }
         });
       }
+      wx.hideLoading()
     }
     func()
   },
@@ -161,9 +188,13 @@ Page({
   change_current_school_code: function(e) {
     console.log("change_school_list_index")
     console.log(e)
+    console.log("e.detail.currentItemId类型")
+    console.log(typeof e.detail.currentItemId)
     this.setData({
       current_school_code: e.detail.currentItemId
     })
+    console.log("this.data.school_index:")
+    console.log(this.data.school_index)
   },
 
   ok: function(args) {
@@ -272,6 +303,30 @@ Page({
   change_display_status: function() {
     this.setData({
       display_status: !this.data.display_status
+    })
+  },
+
+  handler_toggle: function() {
+    this.setData({
+      folded: !this.data.folded
+    })
+  },
+
+  handler_tab_item_school: function(args) {
+    console.log("handler_tab_item_school参数为:")
+    console.log(args)
+    this.setData({
+      school_index: this.data.code2index[args.currentTarget.dataset.school_code.toString()].school_index,
+      folded: true
+    })
+  },
+
+  handler_tab_item_department: function(args) {
+    console.log("handler_tab_item_department参数为:")
+    console.log(args)
+    this.setData({
+      department_index: this.data.code2index[this.data.current_school_code].department[args.currentTarget.dataset.department_code.toString()].department_index,
+      folded: true
     })
   }
 })

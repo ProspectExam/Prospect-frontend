@@ -91,10 +91,34 @@ Page({
             fail: function(err) {
               console.log("send_code fail")
               console.log(err)
+              app.globalData.login_info.access_token = ""
+              app.globalData.login_info.open_id = ""
+              app.globalData.login_info.login_status = false
+              app.globalData.login_info.avatarUrl = defaultAvatarUrl
+              app.globalData.login_info.nickname = ""
+              that.setData({
+                login_info: app.globalData.login_info
+              })
+              wx.showToast({
+                title: '登录失败',
+                icon: "error"
+              })
             }
           })
         } else {
           console.log("wx.login进入success回调，code出错")
+          app.globalData.login_info.access_token = ""
+          app.globalData.login_info.open_id = ""
+          app.globalData.login_info.login_status = false
+          app.globalData.login_info.avatarUrl = defaultAvatarUrl
+          app.globalData.login_info.nickname = ""
+          that.setData({
+            login_info: app.globalData.login_info
+          })
+          wx.showToast({
+            title: '登录失败',
+            icon: "error"
+          })
         }
       },
       fail: function() {
@@ -105,6 +129,18 @@ Page({
           icon: "error"
         });
         //--------------------------------------
+        app.globalData.login_info.access_token = ""
+        app.globalData.login_info.open_id = ""
+        app.globalData.login_info.login_status = false
+        app.globalData.login_info.avatarUrl = defaultAvatarUrl
+        app.globalData.login_info.nickname = ""
+        that.setData({
+          login_info: app.globalData.login_info
+        })
+        wx.showToast({
+          title: '登录失败',
+          icon: "error"
+        })
       }
     });
   }

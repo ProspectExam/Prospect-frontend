@@ -1,33 +1,67 @@
 <!--pages/subscribe/subscribe.wxml-->
 <view class="page" style="height: {{h}}px; width: {{w}}px;">
-  <block wx:if="{{display_status}}">
-    <view class="card-container" catchtap="change_display_status">
-      <swiper class="card-content" bindchange="change_current_school_code">
-        <block wx:for="{{access_by_code}}" wx:key="index">
-          <swiper-item item-id="{{item.school_code}}">
-            <view class="card-content-title">{{item.school_name}}</view>
-            <view class="card-school-detail">还没有内容~~</view>
-          </swiper-item>
+  <block wx:if="{{!folded}}">
+    <view class="side">
+      <scroll-view class="tab" scroll-y="true">
+        <block wx:if="{{display_status}}">
+          <block wx:for="{{access_by_code}}" wx:key="index">
+            <view class="tab_item" catchtap="handler_tab_item_school" data-school_code="{{item.school_code}}">{{item.school_name}}</view>
+          </block>
         </block>
-      </swiper>
+        <block wx:else>
+          <block wx:for="{{access_by_code[current_school_code].department}}" wx:key="index">
+            <view class="tab_item" catchtap="handler_tab_item_department" data-department_code="{{item.department_code}}">{{item.department_name}}</view>
+          </block>
+        </block>
+      </scroll-view>
+      <view class="tab_right">
+        <view class="toggle_container" catchtap="handler_toggle">
+          <view class="perch"></view>
+          <view class="toggle"></view>
+          <view class="toggle"></view>
+          <view class="toggle"></view>
+        </view>
+      </view>
     </view>
   </block>
   <block wx:else>
-    <view class="card-container" catchtap="change_display_status">
-      <swiper class="card-content">
-        <block wx:for="{{access_by_code[current_school_code].department}}" wx:for-item="itm" wx:for-index="idx" wx:key="idx">
-          <swiper-item>
-            <view class="card-content-title">{{itm.department_name}}</view>
-            <view class="card-department-detail">还没有内容~~</view>
-            <view class="button" wx:if="{{itm.subscribe_status}}">
-              <button size="mini" type="warn" catchtap="cancel" data-department_code="{{itm.department_code}}">取消订阅</button>
-            </view>
-            <view class="button">
-              <button size="mini" type="primary" catchtap="ok" data-department_code="{{itm.department_code}}">订阅</button>
-            </view>
-          </swiper-item>
-        </block>
-      </swiper>
+    <view class="wrapper">
+      <view class="toggle_container" catchtap="handler_toggle">
+        <view class="perch"></view>
+        <view class="toggle"></view>
+        <view class="toggle"></view>
+        <view class="toggle"></view>
+      </view>
     </view>
+    <block wx:if="{{display_status}}">
+      <view class="card-container" catchtap="change_display_status">
+        <swiper class="card-content" bindchange="change_current_school_code" current="{{school_index}}">
+          <block wx:for="{{access_by_code}}" wx:key="index">
+            <swiper-item item-id="{{item.school_code}}">
+              <view class="card-content-title">{{item.school_name}}</view>
+              <view class="card-school-detail">还没有内容~~</view>
+            </swiper-item>
+          </block>
+        </swiper>
+      </view>
+    </block>
+    <block wx:else>
+      <view class="card-container" catchtap="change_display_status">
+        <swiper class="card-content" current="{{department_index}}">
+          <block wx:for="{{access_by_code[current_school_code].department}}" wx:for-item="itm" wx:for-index="idx" wx:key="idx">
+            <swiper-item>
+              <view class="card-content-title">{{itm.department_name}}</view>
+              <view class="card-department-detail">还没有内容~~</view>
+              <view class="button" wx:if="{{itm.subscribe_status}}">
+                <button size="mini" type="warn" catchtap="cancel" data-department_code="{{itm.department_code}}">取消订阅</button>
+              </view>
+              <view class="button">
+                <button size="mini" type="primary" catchtap="ok" data-department_code="{{itm.department_code}}">订阅</button>
+              </view>
+            </swiper-item>
+          </block>
+        </swiper>
+      </view>
+    </block>
   </block>
 </view>

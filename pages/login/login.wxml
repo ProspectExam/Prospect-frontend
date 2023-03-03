@@ -1,8 +1,8 @@
 <!--index.wxml-->
 <view class="box">
   <button class="avatar-wrapper" open-type="chooseAvatar" bind:chooseavatar="onChooseAvatar">
-    <image class="avatar" src="{{avatarUrl}}"></image>
+    <image class="avatar" src="{{login_info.avatarUrl}}"></image>
   </button>
-  <input type="nickname" class="nickname" placeholder="请输入昵称" maxlength="50" bindblur="handler_input" />
+  <input type="nickname" class="nickname" placeholder="请输入昵称" maxlength="5" bindblur="handler_input" />
 </view>
-<button type="primary" bindtap="handler_login" class="login" disabled="{{nickname == ''}}">登录</button>
+<button type="primary" bindtap="handler_login" class="login" disabled="{{login_info.nickname == ''}}">登录</button>
