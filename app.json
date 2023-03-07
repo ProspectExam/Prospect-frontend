@@ -9,7 +9,8 @@
     "pages/waterfall_content/waterfall_content",
     "pages/file/file",
     "pages/file_item/file_item",
-    "pages/file_download/file_download"
+    "pages/file_download/file_download",
+    "pages/local_file/local_file"
   ],
   "window":{
     "backgroundTextStyle": "light",

@@ -4,23 +4,17 @@ let app = getApp()
 
 Page({
   data: {
-    login_info: null,
+    login_info: {},
     list: [
       {
-        text: "信息提醒",
+        text: "订阅提醒",
         id: 1 
       }, {
-        text: "专业推荐",
+        text: "文件查询",
         id: 2 
       }, {
-        text: "保研资讯",
+        text: "本地缓存",
         id: 3
-      }, {
-        text: "保研课堂",
-        id: 4
-      }, {
-        text: "保研商场",
-        id: 5
       }
     ],
     version: "V 1.0.0"
@@ -31,11 +25,6 @@ Page({
    */
   onLoad(options) {
     console.log("page mine onLoad")
-    console.log("app.globalData.login_info:")
-    console.log(app.globalData.login_info)
-    this.setData({
-      login_info: app.globalData.login_info
-    })
   },
 
   /**
@@ -94,6 +83,11 @@ Page({
     } else if (id == 2) {
       wx.navigateTo({
         url: '/pages/file/file',
+      })
+      return
+    } else if (id == 3) {
+      wx.navigateTo({
+        url: '/pages/local_file/local_file',
       })
       return
     }

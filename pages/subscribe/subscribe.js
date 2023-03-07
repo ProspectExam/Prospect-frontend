@@ -61,7 +61,7 @@ Page({
     this.setData({
       code2index: this.data.code2index
     })
-    if (app.globalData.get_subscribed_info) {
+    if (app.globalData.get_subscribed_info && this.data.login_info.login_status) {
       wx.hideLoading()
       return
     }
