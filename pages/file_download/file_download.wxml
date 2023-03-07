@@ -1,0 +1,19 @@
+<!--pages/file_download/file_download.wxml-->
+<view class="page">
+  <view class="progress_container" catchtap="openfile">
+    <view class="download_title">{{name}}</view>
+    <block wx:if="{{!exist}}">
+      <progress class="progress" percent="{{download_percent}}" show-info="true" border-radius="15rpx" font-size="35rpx" stroke-width="15rpx"></progress>
+      <view class="download_detail_container">
+        <view class="download_detail">{{download_totalBytesWritten}}/{{download_totalBytesExpectedToWrite}}</view>
+        <view class="download_detail_nop"></view>
+        <view class="button_container" catchtap="cancel_or_delete">
+          <view class="button_icon"></view>
+        </view>
+      </view>
+    </block>
+    <block wx:else>
+      <view class="exist">已下载</view>
+    </block>
+  </view>
+</view>

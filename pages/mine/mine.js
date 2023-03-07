@@ -91,6 +91,11 @@ Page({
         url: '/pages/subscribe/subscribe'
       })
       return
+    } else if (id == 2) {
+      wx.navigateTo({
+        url: '/pages/file/file',
+      })
+      return
     }
     wx.navigateTo({
       url: '/pages/function/function?id=' + id

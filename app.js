@@ -145,6 +145,8 @@ App({
 
     get_school_department_and_subscribe_info(this)
 
+    this.globalData.download_file = wx.getStorageSync('download_file') || {}
+
     console.log("App onLaunch end")
     console.log("this.globalData:")
     console.log(this.globalData)
@@ -152,7 +154,8 @@ App({
   globalData: {
     login_info: null, 
     access_by_code: null,
-    get_subscribed_info: false
+    get_subscribed_info: false,
+    download_file: null
   },
   // 引入`towxml3.0`解析方法
   towxml: require('/towxml/index'),
