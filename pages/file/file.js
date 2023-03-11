@@ -24,15 +24,17 @@ Page({
               console.log('tap', args)
               console.log("tag:")
               console.log(args.currentTarget.dataset.data.tag)
-              let school_name = args.currentTarget.dataset.data.children["0"].text
-              let href = 'http://rinka-kujou.uk:8080/' + args.currentTarget.dataset.data.attrs.href
-              console.log("school_name:")
-              console.log(school_name)
-              console.log("href:")
-              console.log(href)
-              wx.navigateTo({
-                url: '/pages/file_item/file_item?name=' + school_name + '&href=' + href,
-              })
+              if (args.currentTarget.dataset.data.tag === "navigator") {
+                let school_name = args.currentTarget.dataset.data.children["0"].text
+                let href = 'http://rinka-kujou.uk:8080/' + args.currentTarget.dataset.data.attrs.href
+                console.log("school_name:")
+                console.log(school_name)
+                console.log("href:")
+                console.log(href)
+                wx.navigateTo({
+                  url: '/pages/file_item/file_item?name=' + school_name + '&href=' + href,
+                })
+              }
             },
             change: function(args) {
               console.log('todo', args)

@@ -21,11 +21,27 @@ Page({
         let obj = app.towxml(e.data, 'markdown', {
           // theme:'dark',
           events:{
-            tap:e => {
-              console.log('tap',e);
+            tap: function(args) {
+              console.log('tap', args)
+              console.log("tag:")
+              console.log(args.currentTarget.dataset.data.tag)
+              if (args.currentTarget.dataset.data.tag === "navigator") {
+                let name = args.currentTarget.dataset.data.children["0"].text
+                let href = args.currentTarget.dataset.data.attrs.href
+                console.log("name:", name)
+                console.log("href:", href)
+                if (href.substr(-5, 5) === ".html") {
+                  console.log(name, "是一个html文件")
+                  wx.navigateTo({
+                    url: '/pages/html_viewer/html_viewer?name=' + name + '&href=' + href,
+                  })
+                } else {
+                  
+                }
+              }
             },
-            change:e => {
-              console.log('todo',e);
+            change: function(args) {
+              console.log('todo', args)
             }
           }
         });

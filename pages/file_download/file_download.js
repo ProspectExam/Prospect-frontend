@@ -23,44 +23,24 @@ Page({
     console.log("page file_download onLoad")
     console.log("options:")
     console.log(options)
+    let fsm = wx.getFileSystemManager()
     this.setData({
       name: options.name,
       href: options.href
     })
-
-    if (app.globalData.download_file[this.data.name]) {
-      console.log(this.data.name, "文件存在")
-      this.setData({
-        exist: true,
-        filePath: app.globalData.download_file[this.data.name]
-      })
-      wx.openDocument({
-        filePath: app.globalData.download_file[this.data.name],
-        success: function(u)  {
-          console.log(u)
-        },
-        fail: function(u) {
-          console.log(u)
-        }
-      })
-      return
-    } else {
-      console.log(this.data.name, "文件不存在")
-    }
-
     const that = this
-    const downloadTask = wx.downloadFile({
-      url: that.data.href,
-      success: function(res) {
+    fsm.access({
+      path: app.globalData.download_file[that.data.name],
+      success(res) {
+        // 文件存在
         console.log(res)
+        console.log(that.data.name, "文件存在")
         that.setData({
-          filePath: res.tempFilePath,
-          exist: true
+          exist: true,
+          filePath: app.globalData.download_file[that.data.name]
         })
-        app.globalData.download_file[that.data.name] = res.tempFilePath
-        wx.setStorageSync('download_file', app.globalData.download_file)
         wx.openDocument({
-          filePath: res.tempFilePath,
+          filePath: app.globalData.download_file[that.data.name],
           success: function(u)  {
             console.log(u)
           },
@@ -68,21 +48,56 @@ Page({
             console.log(u)
           }
         })
+        return
       },
-      fail: function(res) {
-        console.log(res)
+      fail(res) {
+        // 文件不存在或其他错误
+        console.error(res)
+        const downloadTask = wx.downloadFile({
+          url: that.data.href,
+          success: function(res1) {
+            console.log(res1)
+            fsm.saveFile({
+              tempFilePath: res1.tempFilePath,
+              success: function(args) {
+                console.log(args)
+                that.setData({
+                  filePath: args.savedFilePath,
+                  exist: true
+                })
+                app.globalData.download_file[that.data.name] = args.savedFilePath
+                wx.setStorageSync('download_file', app.globalData.download_file)
+                wx.openDocument({
+                  filePath: args.savedFilePath,
+                  success: function(u)  {
+                    console.log(u)
+                  },
+                  fail: function(u) {
+                    console.log(u)
+                  }
+                })
+              },
+              fail: function(args) {
+                console.log(args)
+              }
+            })
+          },
+          fail: function(res) {
+            console.log(res)
+          }
+        })
+        
+        downloadTask.onProgressUpdate((opu_res) => {
+          // console.log('下载进度', opu_res.progress)
+          // console.log('已经下载的数据长度', opu_res.totalBytesWritten)
+          // console.log('预期需要下载的数据总长度', opu_res.totalBytesExpectedToWrite)
+          that.setData({
+            download_percent: opu_res.progress,
+            download_totalBytesWritten: opu_res.totalBytesWritten,
+            download_totalBytesExpectedToWrite: opu_res.totalBytesExpectedToWrite
+          })
+        })
       }
-    })
-    
-    downloadTask.onProgressUpdate((opu_res) => {
-      // console.log('下载进度', opu_res.progress)
-      // console.log('已经下载的数据长度', opu_res.totalBytesWritten)
-      // console.log('预期需要下载的数据总长度', opu_res.totalBytesExpectedToWrite)
-      that.setData({
-        download_percent: opu_res.progress,
-        download_totalBytesWritten: opu_res.totalBytesWritten,
-        download_totalBytesExpectedToWrite: opu_res.totalBytesExpectedToWrite
-      })
     })
   },
 

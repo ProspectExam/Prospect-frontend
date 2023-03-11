@@ -10,7 +10,8 @@
     "pages/file/file",
     "pages/file_item/file_item",
     "pages/file_download/file_download",
-    "pages/local_file/local_file"
+    "pages/local_file/local_file",
+    "pages/html_viewer/html_viewer"
   ],
   "window":{
     "backgroundTextStyle": "light",

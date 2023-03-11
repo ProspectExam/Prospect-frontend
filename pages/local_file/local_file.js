@@ -15,15 +15,7 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad(options) {
-    this.setData({
-      download_file: app.globalData.download_file
-    })
-    for (let item in this.data.download_file) {
-      this.setData({
-        empty: false
-      })
-      break
-    }
+
   },
 
   /**
@@ -37,7 +29,16 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow() {
-
+    this.setData({
+      download_file: app.globalData.download_file,
+      empty: true
+    })
+    for (let item in this.data.download_file) {
+      this.setData({
+        empty: false
+      })
+      break
+    }
   },
 
   /**
@@ -75,15 +76,50 @@ Page({
 
   },
 
-  openfile: function(e) {
+  handler_tap: function(e) {
+    const that = this
     console.log("openfile", e)
-    wx.openDocument({
-      filePath: e.currentTarget.dataset.filepath,
-      success: function(u)  {
-        console.log(u)
+    wx.showActionSheet({
+      itemList: ['打开文件', '删除文件'],
+      success (res) {
+        console.log(res)
+        if (res.tapIndex === 0) {
+          wx.openDocument({
+            filePath: e.currentTarget.dataset.filepath,
+            success: function(u)  {
+              console.log(u)
+            },
+            fail: function(u) {
+              console.log(u)
+            }
+          })
+        } else if (res.tapIndex === 1) {
+          let fsm = wx.getFileSystemManager()
+          fsm.removeSavedFile({
+            filePath: e.currentTarget.dataset.filepath,
+            success: function(u)  {
+              console.log(u)
+              delete app.globalData.download_file[e.currentTarget.dataset.filename]
+              wx.setStorageSync('download_file', app.globalData.download_file)
+              that.setData({
+                download_file: app.globalData.download_file,
+                empty: true
+              })
+              for (let item in that.data.download_file) {
+                that.setData({
+                  empty: false
+                })
+                break
+              }
+            },
+            fail: function(u) {
+              console.log(u)
+            }
+          })
+        }
       },
-      fail: function(u) {
-        console.log(u)
+      fail (res) {
+        console.log(res)
       }
     })
   }

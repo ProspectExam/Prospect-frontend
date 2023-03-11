@@ -1,0 +1,4 @@
+<!--pages/html_viewer/html_viewer.wxml-->
+<view class="page">
+  <towxml nodes="{{article}}"/>
+</view>

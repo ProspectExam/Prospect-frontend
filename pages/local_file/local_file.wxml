@@ -2,7 +2,7 @@
 <view class="page">
   <block wx:if="{{!empty}}">
     <block wx:for="{{download_file}}" wx:key="index">
-      <view class="file_container" data-filepath="{{item}}" catchtap="openfile">
+      <view class="file_container" data-filepath="{{item}}" data-filename="{{index}}" catchtap="handler_tap">
         <view class="file_name">{{index}}</view>
         <view class="file_detail">已下载</view>
       </view>

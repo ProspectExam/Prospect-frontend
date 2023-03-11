@@ -1,4 +1,4 @@
-// pages/file_item/file_item.js
+// pages/html_viewer/html_viewer.js
 //获取应用实例
 const app = getApp();
 Page({
@@ -8,7 +8,7 @@ Page({
     href: null
 	},
 	onLoad: function (options) {
-    console.log("page file_item onLoad")
+    console.log("page html_viewer onLoad")
     console.log("options:")
     console.log(options)
     this.setData({
@@ -22,7 +22,7 @@ Page({
       url: that.data.href,
       method: "GET",
       success: function(e) {
-        console.log("访问文件系统子目录")
+        console.log("访问：", that.data.href)
         console.log(that.data.name)
         console.log(e)
         let obj = app.towxml(e.data, 'html', {
@@ -33,19 +33,16 @@ Page({
               console.log("tag:", args.currentTarget.dataset.data.tag)
               if (args.currentTarget.dataset.data.tag === "navigator") {
                 let name = args.currentTarget.dataset.data.children["0"].text
-                let href = that.data.href + args.currentTarget.dataset.data.attrs.href
+                let href = args.currentTarget.dataset.data.attrs.href
                 console.log("name:", name)
                 console.log("href:", href)
-                if (name.substr(-1) === "/") {
-                  console.log(name, "是一个目录")
+                if (href.substr(-5, 5) === ".html") {
+                  console.log(name, "是一个html文件")
                   wx.navigateTo({
-                    url: '/pages/file_item/file_item?name=' + name + '&href=' + href,
+                    url: '/pages/html_viewer/html_viewer?name=' + name + '&href=' + href,
                   })
                 } else {
-                  console.log(name, "是一个文件")
-                  wx.navigateTo({
-                    url: '/pages/file_download/file_download?name=' + name + '&href=' + href,
-                  })
+                  
                 }
               }
             },
