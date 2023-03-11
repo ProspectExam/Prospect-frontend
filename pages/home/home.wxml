@@ -34,7 +34,6 @@
       <view class="empty">你似乎没有订阅过</view>
     </block>
   </view>
-  <image src='/image/goTop.png' class='goTop' hidden='{{!floorStatus}}' bindtap="goTop" mode="aspectFit"></image>
 
   <view class="title_container">
     <view class="title_content">精选文章</view>
@@ -45,6 +44,8 @@
     <image class="waterfall_item_image" mode="aspectFill" wx:if="{{item.url != ''}}" src="{{item.url}}"></image>
     <!-- <text class="waterfall_item_summary">{{item.summary}}</text> -->
   </view>
+
+  <image src='/image/goTop.png' class='goTop' hidden='{{!floorStatus}}' bindtap="goTop" mode="aspectFit"></image>
 
   <view class="bottom">
     <view class="div"></view>

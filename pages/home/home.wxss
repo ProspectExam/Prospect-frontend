@@ -1,78 +1,10 @@
 /* pages/home/home.wxss */
 .page {
-  width: 100%;
+  width: 750rpx;
   display: flex;
   flex-direction: column;
   align-items: center;
   position: relative;
-}
-
-.subscribed {
-  width: 95%;
-  height: 500rpx;
-  box-sizing: border-box;
-  box-shadow: 5rpx 5rpx 20rpx -2rpx rgb(224, 228, 228);
-  border: 1rpx solid rgb(247, 248, 248);
-  border-radius: 15rpx;
-}
-
-.school_container {
-  width: 100%;
-  height: 500rpx;
-  box-sizing: border-box;
-  box-shadow: 5rpx 5rpx 20rpx -2rpx rgb(224, 228, 228);
-  border: 1rpx solid rgb(247, 248, 248);
-  border-radius: 15rpx;
-}
-
-.school_container_item {
-  width: 100%;
-  height: 500rpx;
-  box-sizing: border-box;
-  box-shadow: 5rpx 5rpx 20rpx -2rpx rgb(224, 228, 228);
-  border: 1rpx solid rgb(247, 248, 248);
-  border-radius: 15rpx;
-}
-
-.subscribed_item {
-  width: 100%;
-  height: 500rpx;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-around;
-  align-items: center;
-}
-
-.subscribed_item_school {
-  width: 95%;
-  height: 100rpx;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-around;
-  align-items: center;
-}
-
-.department_container {
-  width: 95%;
-  height: 330rpx;
-  margin-top: 40rpx;
-  margin-bottom: 30rpx;
-  box-sizing: border-box;
-  border: 1rpx solid rgb(170, 245, 245);
-  border-radius: 15rpx;
-}
-
-.department_container_item {
-  width: 100%;
-  height: 100%;
-}
-
-.subscribed_item_department {
-  width: 100%;
-  height: 330rpx;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
 }
 
 .title_container {
@@ -95,6 +27,115 @@
   color: rgb(241, 100, 119);
 }
 
+.subscribed {
+  width: 95%;
+  height: 500rpx;
+  box-sizing: border-box;
+  box-shadow: 5rpx 5rpx 20rpx -2rpx rgb(224, 228, 228);
+  border: 1rpx solid rgb(247, 248, 248);
+  border-radius: 15rpx;
+}
+
+.school_container {
+  width: 100%;
+  height: 100%;
+  box-sizing: border-box;
+  box-shadow: 5rpx 5rpx 20rpx -2rpx rgb(224, 228, 228);
+  border: 1rpx solid rgb(247, 248, 248);
+  border-radius: 15rpx;
+}
+
+.school_container_item {
+  width: 100%;
+  height: 100%;
+  box-sizing: border-box;
+  box-shadow: 5rpx 5rpx 20rpx -2rpx rgb(224, 228, 228);
+  border: 1rpx solid rgb(247, 248, 248);
+  border-radius: 15rpx;
+}
+
+.subscribed_item {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.subscribed_item_school {
+  width: 95%;
+  height: 22%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  color: black;
+  font-size: 50rpx;
+  font-weight: 800;
+  border: 1rpx solid rgb(184, 241, 241);
+  border-radius: 15rpx;
+  margin-top: 2.5%;
+  margin-bottom: 0.5%;
+}
+
+.department_container {
+  width: 95%;
+  height: 72%;
+  box-sizing: border-box;
+  border: 1rpx solid rgb(184, 241, 241);
+  border-radius: 15rpx;
+  margin-top: 0.5%;
+  margin-bottom: 2.5%;
+}
+
+.department_container_item {
+  width: 100%;
+  height: 100%;
+}
+
+.subscribed_item_department {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  color: red;
+  font-size: 40rpx;
+  font-weight: lighter;
+}
+
+.no_info {
+  width: 100%;
+  height: 100%;
+  box-sizing: border-box;
+  box-shadow: 5rpx 5rpx 20rpx -2rpx rgb(224, 228, 228);
+  border: 1rpx solid rgb(247, 248, 248);
+  border-radius: 15rpx;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  color: rgb(226, 62, 62);
+  font-size: large;
+}
+
+.empty {
+  width: 100%;
+  height: 100%;
+  box-sizing: border-box;
+  box-shadow: 5rpx 5rpx 20rpx -2rpx rgb(224, 228, 228);
+  border: 1rpx solid rgb(247, 248, 248);
+  border-radius: 15rpx;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  color: rgb(226, 62, 62);
+  font-size: large;
+}
+
 .waterfall {
   width: 95%;
   box-sizing: border-box;
@@ -106,11 +147,18 @@
 }
 
 .waterfall_item_title {
+  width: 100%;
+  /* height: 50rpx; // 自动换行 */
   display: flex;
   flex-direction: column;
+  justify-content: center;
   align-items: center;
-  font-size: 45rpx;
-  font-weight: bold;
+  color: rgb(18, 34, 7);
+  font-size: 40rpx;
+  font-weight: 500;
+  word-break: break-all;
+  margin-top: 10rpx;
+  margin-bottom: 10rpx;
 }
 
 .goTop{

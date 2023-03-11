@@ -12,7 +12,7 @@ Page({
     console.log("page file onShow")
     const that = this
     wx.request({
-      url: 'https://rinka-kujou.uk/',
+      url: 'http://rinka-kujou.uk:8080/',
       method: "GET",
       success: function(e) {
         console.log("访问文件系统:")
@@ -25,7 +25,7 @@ Page({
               console.log("tag:")
               console.log(args.currentTarget.dataset.data.tag)
               let school_name = args.currentTarget.dataset.data.children["0"].text
-              let href = 'https://rinka-kujou.uk/' + args.currentTarget.dataset.data.attrs.href
+              let href = 'http://rinka-kujou.uk:8080/' + args.currentTarget.dataset.data.attrs.href
               console.log("school_name:")
               console.log(school_name)
               console.log("href:")

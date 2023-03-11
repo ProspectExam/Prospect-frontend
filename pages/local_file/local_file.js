@@ -7,7 +7,8 @@ Page({
    * 页面的初始数据
    */
   data: {
-    download_file: {}
+    download_file: {},
+    empty: true
   },
 
   /**
@@ -17,6 +18,12 @@ Page({
     this.setData({
       download_file: app.globalData.download_file
     })
+    for (let item in this.data.download_file) {
+      this.setData({
+        empty: false
+      })
+      break
+    }
   },
 
   /**

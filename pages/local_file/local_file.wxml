@@ -1,9 +1,18 @@
 <!--pages/local_file/local_file.wxml-->
 <view class="page">
-  <block wx:for="{{download_file}}" wx:key="index">
-    <view class="file_container" data-filepath="{{item}}" catchtap="openfile">
-      <view class="file_name">{{index}}</view>
-      <view class="file_detail">已下载</view>
+  <block wx:if="{{!empty}}">
+    <block wx:for="{{download_file}}" wx:key="index">
+      <view class="file_container" data-filepath="{{item}}" catchtap="openfile">
+        <view class="file_name">{{index}}</view>
+        <view class="file_detail">已下载</view>
+      </view>
+    </block>
+  </block>
+  <block wx:else>
+    <view class="bottom">
+      <view class="div"></view>
+      <view class="text">没有找到任何缓存文件</view>
+      <view class="div"></view>
     </view>
   </block>
 </view>

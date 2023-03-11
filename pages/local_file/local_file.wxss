@@ -41,3 +41,31 @@
   font-weight: 100;
   color: rgb(121, 158, 165);
 }
+
+.bottom {
+  width: 95%;
+  height: 40rpx;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-around;
+  margin-top: 20rpx;
+}
+
+.div {
+  width: 30%;
+  height: 3rpx;
+  background-color: cadetblue;
+}
+
+.text {
+  width: 40%;
+  height: 40rpx;
+  color: cadetblue;
+  font-size: 20rpx;
+  font-weight: 100;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+}
